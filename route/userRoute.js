@@ -20,12 +20,13 @@ router.get(
     successRedirect: successLoginUrl,
   }),
   (req, res) => {
-    req.session.save(function (err) {
-      console.log("User", req.user);
-      res.status(200).json({
-        message: req.user,
-        statuscode: 200,
-      });
+    console.group("Hiii");
+    console.log("User", req.user);
+    req.session.CurrentUser = req.user;
+    console.log("Curent USer", CurrentUser);
+    res.status(200).json({
+      message: req.user,
+      statuscode: 200,
     });
   }
 );

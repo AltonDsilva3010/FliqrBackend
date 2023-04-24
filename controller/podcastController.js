@@ -25,6 +25,22 @@ module.exports.newpodcast = (req, res) => {
   }
 };
 
+module.exports.categories = async (req, res) => {
+  const name = req.params.name;
+  const data = await Podcast.find({ category: name });
+  try {
+    res.status(200).json({
+      message: data,
+      statuscode: 200,
+    });
+  } catch (e) {
+    res.status(404).json({
+      message: "Something went wrong",
+      statuscode: 404,
+    });
+  }
+};
+
 module.exports.getpodcasts = async (req, res) => {
   const data = await Podcast.find({});
   try {
@@ -130,9 +146,8 @@ module.exports.likepodcast = async (req, res) => {
 };
 
 module.exports.search = async (req, res) => {
-  const title = req.body.title;
-  const podcast = await Podcast.find({ title: title });
-  console.log(podcast);
+  const title = req.query.q;
+  const podcast = await Podcast.find({ authorName: title });
   try {
     res.status(200).json({
       message: podcast,

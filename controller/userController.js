@@ -1,3 +1,4 @@
+const user = require("./../models/user");
 const User = require("./../models/user");
 
 module.exports.register = async (req, res, next) => {
@@ -9,7 +10,7 @@ module.exports.register = async (req, res, next) => {
       if (err) return next(err);
       res.status(200).json({
         statuscode: 200,
-        message: "Successfully Logged in",
+        message: req.user,
       });
     });
   } catch (e) {
@@ -37,8 +38,10 @@ module.exports.login = (req, res) => {
 };
 
 module.exports.profile = async (req, res) => {
+  console.log(req.session.id);
+  console.log("Profile");
+  console.log(req.user);
   try {
-    const id = req.params.id;
     const user = await User.findById(id);
     console.log(id);
     console.log(user);

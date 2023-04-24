@@ -19,6 +19,8 @@ passport.use(
       const user = await User.findOne({ googleId: profile.id }).then(
         (existingUser) => {
           if (existingUser) {
+            req.session.CurrentUser = existingUser;
+            console.log(req.session.CurrentUser);
             return cb(null, existingUser);
           } else {
             new User({
@@ -28,10 +30,15 @@ passport.use(
               googleId: profile.id,
             })
               .save()
-              .then((user) => cb(null, user));
+              .then((user) => {
+                req.session.CurrentUser = user;
+                cb(null, user);
+              });
           }
         }
       );
+
+      console.log(req.session.id);
 
       if (user && user[0]) return cb(null, user && user[0]);
     }
@@ -43,5 +50,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((user, done) => {
+  console.log("desearializing user");
+  console.log(user);
   done(null, user);
 });

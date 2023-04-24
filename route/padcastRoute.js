@@ -84,12 +84,12 @@ router.post("/newVideo", async (req, res) => {
   });
 });
 router.route("/podcast/:id").get(Podcast.getcurrentpodcast);
-
 router.route("/getpodcasts").get(Podcast.getpodcasts);
 router.route("/getaudio").get(Podcast.getaudio);
 router.route("/getvideo").get(Podcast.getvideo);
 router.route("/like/:id").get(Podcast.likepodcast);
 router.route("/favouritepodcast").get(Podcast.favouritepodcast);
 router.route("/searchbar").get(Podcast.search);
+router.route("/categories/:name").get(Podcast.categories);
 
 module.exports = router;

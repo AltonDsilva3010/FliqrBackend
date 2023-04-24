@@ -15,7 +15,7 @@ router.route("/login").post(
   users.login
 );
 
-router.route("/profile/:id").get(users.profile);
+router.route("/profile").get(users.profile);
 
 router.get("/logout", users.logout);
 
